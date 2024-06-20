@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/Fullscreen/Resources/full-screen.styles.uss?fileID=7433441132597879392&amp;guid=25a6305a98e544243be6ceeb4d32de99&amp;type=3#full-screen.styles" />
+</ui:UXML>
