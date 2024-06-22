@@ -13,9 +13,9 @@ namespace Deege.UI.Controls
             // Initialization logic will be moved to Build method
         }
 
-        public override void ConstructUI(UIDocument uiDocument)
+        protected override void ConstructUI(UIDocument uiDocument, string styleResource = "")
         {
-            // Add specific build logic for UIWindow
+            base.ConstructUI(uiDocument, styleResource);
         }
 
         public void AddChild(UIWindow child)

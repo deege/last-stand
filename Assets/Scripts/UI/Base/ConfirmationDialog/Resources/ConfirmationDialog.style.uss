@@ -5,7 +5,7 @@
     flex-direction: column; 
     padding:20px; 
     border-radius: 20px;
-    border-color: red;
+    border-color: black;
     border-width: 10px;
 }
 
@@ -23,9 +23,9 @@
 .header-label {
     font-size: 50px;
     -unity-text-align: upper-center;
-    height: 100%;
     -unity-font-definition: resource('Fonts/Poetsen_One/PoetsenOne-Regular');
-    color: red;
+    height: 100%;
+    color: black;
     padding-bottom: 10px;
 }
 
@@ -38,10 +38,8 @@
     height: 50px;
 }
 
-
 .message-label {
     font-size: 18px;
-    /* text-align: center; */
 }
 
 .button-container {

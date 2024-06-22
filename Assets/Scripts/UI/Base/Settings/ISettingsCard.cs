@@ -1,8 +1,7 @@
-using Deege.UI.Controls;
-using UnityEngine;
+
 using UnityEngine.UIElements;
 
-namespace Deege.Game.UI
+namespace Deege.UI.Controls
 {
     public interface ISettingsCard
     {

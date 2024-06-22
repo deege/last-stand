@@ -25,8 +25,10 @@ namespace Deege.UI.Controls
             buttonResults = new Dictionary<Button, T>();
         }
 
-        public override void ConstructUI(UIDocument uiDocument)
+        protected override void ConstructUI(UIDocument uiDocument, string styleResource = "")
         {
+            base.ConstructUI(uiDocument, styleResource);
+
             AddToClassList("dialog");
 
             header.AddToClassList("header");
@@ -51,10 +53,10 @@ namespace Deege.UI.Controls
             style.height = size.y;
         }
 
-        public Task<T> ShowAsync()
+        public Task<T> ShowAsync(UIDocument uiDocument)
         {
             taskCompletionSource = new TaskCompletionSource<T>();
-            Show();
+            Show(uiDocument);
             return taskCompletionSource.Task;
         }
 

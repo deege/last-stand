@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Deege.Events;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Deege.Game.UI
+namespace Deege.Game.UI.Custom
 {
     public class UIManager : MonoBehaviour
     {
@@ -78,8 +75,6 @@ namespace Deege.Game.UI
                             ToggleMainMenu(uiArgs);
                             break;
                         }
-
-
                     default:
                         break;
                 }
@@ -99,10 +94,8 @@ namespace Deege.Game.UI
         {
             if (uiArgs.Activate)
             {
-                Debug.Log("UIManager: Show MainMenu");
                 if (!uiManagers.ContainsKey(UserInterface.MainMenu))
                 {
-
                     MainMenuManager mainMenuManager = new(fullscreenDocument, OnUserInterfaceChange)
                     {
                         PopupDocument = popupDocument,
@@ -114,7 +107,6 @@ namespace Deege.Game.UI
             }
             else
             {
-                Debug.Log("UIManager: Hide MainMenu");
                 if (uiManagers.ContainsKey(UserInterface.MainMenu))
                 {
                     uiManagers[UserInterface.MainMenu].Hide();

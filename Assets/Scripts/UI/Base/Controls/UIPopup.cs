@@ -13,8 +13,9 @@ namespace Deege.UI.Controls
             // Initialization logic will be moved to Build method
         }
 
-        public override void ConstructUI(UIDocument uiDocument)
+        protected override void ConstructUI(UIDocument uiDocument, string styleResource = "")
         {
+            base.ConstructUI(uiDocument, styleResource);
             titleLabel = new LocalizedLabel();
             titleLabel.AddToClassList("title");
             hierarchy.Add(titleLabel);

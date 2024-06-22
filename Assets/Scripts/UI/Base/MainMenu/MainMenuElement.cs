@@ -17,14 +17,15 @@ namespace Deege.Game.UI
 
         public string Title { get; set; }
 
-        private const string styleResource = "MainMenu.style";
-
-        public override void ConstructUI(UIDocument uiDocument)
+        protected override void ConstructUI(UIDocument uiDocument, string styleResource = "MainMenu.style")
         {
-            AddToClassList("container");
-
+            if (string.IsNullOrEmpty(styleResource))
+            {
+                styleResource = baseStyleResource;
+            }
             styleSheets.Add(Resources.Load<StyleSheet>(styleResource));
 
+            AddToClassList("container");
             CreateTitle();
 
             buttonContainer.AddToClassList("button-container");
@@ -60,6 +61,7 @@ namespace Deege.Game.UI
     {
         private string _title = "Doughnut Panic!";
         private readonly List<(string, string, Action)> _buttons = new();
+        private string styleResource = "MainMenu.style";
 
         public static MainMenuElementBuilder Builder()
         {
@@ -78,12 +80,18 @@ namespace Deege.Game.UI
             return this;
         }
 
+        public MainMenuElementBuilder SetStyleResource(string styleResource)
+        {
+            this.styleResource = styleResource;
+            return this;
+        }
+
         public MainMenuElement Build()
         {
-            MainMenuElement _menuScreen = new MainMenuElement();
+            MainMenuElement _menuScreen = new();
 
             // Load styles
-            _menuScreen.styleSheets.Add(Resources.Load<StyleSheet>("MainMenu.style"));
+            _menuScreen.SetStyleResource(styleResource);
 
             // Create title
             _menuScreen.Title = _title;

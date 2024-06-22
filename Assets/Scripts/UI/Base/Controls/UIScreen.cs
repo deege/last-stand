@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Deege.UI.Controls
@@ -9,19 +10,24 @@ namespace Deege.UI.Controls
         private readonly Dictionary<string, System.Action> registeredCallbacks = new();
         private readonly VisualElement rootElement;
         public VisualElement RootElement => rootElement;
+        public string baseStyleResource = "Base.style";
 
         public UIScreen()
         {
             this.rootElement = this;
         }
 
-        public virtual void ConstructUI(UIDocument uiDocument)
+        protected virtual void ConstructUI(UIDocument uiDocument, string styleResource = "")
         {
-            // To be overridden by derived classes for specific setup
+            if (!string.IsNullOrEmpty(styleResource))
+            {
+                styleSheets.Add(Resources.Load<StyleSheet>(styleResource));
+            }
         }
 
-        public virtual void Show()
+        public virtual void Show(UIDocument uiDocument)
         {
+            ConstructUI(uiDocument, baseStyleResource);
             style.display = DisplayStyle.Flex;
         }
 
@@ -33,6 +39,11 @@ namespace Deege.UI.Controls
         public virtual void Render()
         {
             // Custom rendering logic if needed
+        }
+
+        public void SetStyleResource(string styleResource)
+        {
+            baseStyleResource = styleResource;
         }
 
         protected void RegisterButtonEvent(string buttonName, System.Action callback)

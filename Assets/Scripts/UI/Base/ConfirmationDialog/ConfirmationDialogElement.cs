@@ -8,16 +8,18 @@ namespace Deege.Game.UI
     public class ConfirmationDialogElement : UIDialog<string>
     {
         public new class UxmlFactory : UxmlFactory<ConfirmationDialogElement> { }
-        private const string styleResource = "ConfirmationDialog.style";
 
         public string TitleKey { get; set; } = "#MISSING_KEY#";
         public string MessageKey { get; set; } = "#MISSING_KEY#";
 
-        public override void ConstructUI(UIDocument uiDocument)
+        protected override void ConstructUI(UIDocument uiDocument, string styleResource = "ConfirmationDialog.style")
         {
-            base.ConstructUI(uiDocument);
+            if (string.IsNullOrEmpty(styleResource))
+            {
+                styleResource = baseStyleResource;
+            }
+            base.ConstructUI(uiDocument, styleResource);
 
-            styleSheets.Add(Resources.Load<StyleSheet>(styleResource));
 
             // Header
             VisualElement iconContainer = CreateIconContainer();
@@ -67,6 +69,7 @@ namespace Deege.Game.UI
         private readonly List<(string, string, string)> _buttons = new();
         private string _titleKey = "MISSING_KEY";
         private string _messageKey = "MISSING_KEY";
+        private string styleResource = "ConfirmationDialog.style";
 
         public static ConfirmationDialogElementBuilder Builder()
         {
@@ -85,6 +88,12 @@ namespace Deege.Game.UI
             return this;
         }
 
+        public ConfirmationDialogElementBuilder SetStyleResource(string styleResource)
+        {
+            this.styleResource = styleResource;
+            return this;
+        }
+
         public ConfirmationDialogElementBuilder AddButton(string labelKey, string result, string buttonClass)
         {
             _buttons.Add((labelKey, result, buttonClass));
@@ -98,6 +107,8 @@ namespace Deege.Game.UI
                 TitleKey = _titleKey,
                 MessageKey = _messageKey
             };
+            _dialog.SetStyleResource(styleResource);
+
             foreach (var button in _buttons)
             {
                 var (labelKey, result, buttonClass) = button;
