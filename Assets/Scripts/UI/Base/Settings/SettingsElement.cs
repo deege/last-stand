@@ -21,16 +21,25 @@ namespace Deege.Game.UI
         public string SelectKey { get; set; }
         public string DefaultKey { get; set; }
 
-
+        public SettingsElement()
+        {
+            buttons = new List<Button>();
+            cards = new Dictionary<string, UIPanel>();
+        }
 
         protected override void ConstructUI(UIDocument uiDocument, string styleResource = "Settings.style")
         {
+            if (uiDocument == null)
+            {
+                throw new ArgumentNullException("Missing UIDocument");
+            }
             if (string.IsNullOrEmpty(styleResource))
             {
                 styleResource = baseStyleResource;
             }
             base.ConstructUI(uiDocument, styleResource);
             styleSheets.Add(Resources.Load<StyleSheet>(styleResource));
+            AddToClassList("container");
 
             VisualElement titleBar = CreateTitleBar();
             VisualElement contentContainer = CreateContentContainer();
@@ -38,25 +47,22 @@ namespace Deege.Game.UI
             VisualElement settingsContainer = CreateSettingsContainer();
             VisualElement footerBar = CreateFooterBar();
 
-            titleBar.AddToClassList("title-bar");
-            contentContainer.AddToClassList("content-container");
-            settingsList.AddToClassList("settings-list");
-            settingsContainer.AddToClassList("settings-container");
-            footerBar.AddToClassList("footer-bar");
-
-            VisualElement content = uiDocument.rootVisualElement.Q<VisualElement>("content");
-            content.Add(titleBar);
-            content.Add(contentContainer);
+            hierarchy.Add(titleBar);
+            hierarchy.Add(contentContainer);
             contentContainer.Add(settingsList);
             contentContainer.Add(settingsContainer);
-            content.Add(footerBar);
+            hierarchy.Add(footerBar);
+            uiDocument.rootVisualElement.Add(this);
         }
 
         public VisualElement CreateTitleBar()
         {
             var titleBar = new VisualElement();
-            titleBar.AddToClassList("title-bar");
-            titleBar.Add(child: new LocalizedLabel() { LocalizationKey = TitleKey });
+            titleBar.AddToClassList("header");
+
+            var title = LocalizedLabel.CreateLabel(TitleKey, "header-label");
+
+            titleBar.Add(title);
             return titleBar;
         }
 
@@ -67,14 +73,24 @@ namespace Deege.Game.UI
             return contentContainer;
         }
 
+        public void ActivateContentContainer()
+        {
+            AddToClassList("container-active");
+        }
+
+        public void DeactivateContentContainer()
+        {
+            RemoveFromClassList("container-active");
+        }
+
         public VisualElement CreateSettingsList()
         {
             settingsList = new VisualElement();
-            settingsList.AddToClassList("settings-list");
+            settingsList.AddToClassList("settings-buttons");
             return settingsList;
         }
 
-        public void AddButtonToButtonList(string localizationKey, string className = "list-button")
+        public void AddButtonToButtonList(string localizationKey, string className = "settings-menu-button")
         {
             var button = LocalizedButton.CreateButton(localizationKey, className);
             settingsList.Add(button);
@@ -107,7 +123,11 @@ namespace Deege.Game.UI
         public VisualElement CreateFooterBar()
         {
             var footerBar = new VisualElement();
-            footerBar.AddToClassList("footer-bar");
+            footerBar.AddToClassList("footer");
+
+            var title = LocalizedLabel.CreateLabel(BackKey, "footer-label");
+            footerBar.Add(title);
+
             return footerBar;
         }
 
@@ -142,6 +162,9 @@ namespace Deege.Game.UI
         private string selectKey = "#SELECT#";
         private string defaultKey = "#DEFAULT_SETTINGS#";
         private string buttonClass = "list-button";
+
+        private Action<UIScreen> onHide;
+        private Action<UIScreen> onShow;
 
         private readonly List<UIPanel> cards = new();
 
@@ -192,6 +215,18 @@ namespace Deege.Game.UI
             return this;
         }
 
+        public SettingsElementBuilder OnShow(Action<UIScreen> onShow)
+        {
+            this.onShow = onShow;
+            return this;
+        }
+
+        public SettingsElementBuilder OnHide(Action<UIScreen> onHide)
+        {
+            this.onHide = onHide;
+            return this;
+        }
+
         public SettingsElement Build()
         {
             var settingsElement = new SettingsElement()
@@ -202,8 +237,13 @@ namespace Deege.Game.UI
                 DefaultKey = defaultKey
             };
             settingsElement.SetStyleResource(styleResource);
+            settingsElement.OnShow += onShow;
+            settingsElement.OnHide += onHide;
 
-
+            foreach (var card in cards)
+            {
+                settingsElement.RegisterPanel(card.GetCardKey(), card);
+            }
 
             return settingsElement;
         }

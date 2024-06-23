@@ -1,8 +1,12 @@
+using System;
 using System.Threading.Tasks;
 using Deege.Events;
+using Deege.Game.Inputs;
+using Deege.UI.Controls;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-using Deege.Game.UI;
+
 
 namespace Deege.Game.UI.Custom
 {
@@ -10,21 +14,32 @@ namespace Deege.Game.UI.Custom
     public class MainMenuManager : IUIManager
     {
         private MainMenuElement mainMenu;
+        private readonly InputActions inputActions;
 
         public UIDocument SettingsDocument { get; set; }
         public UIDocument PopupDocument { get; set; }
         public UIDocument FullscreenDocument { get; set; }
+        private UIScreen currentScreen;
 
         private readonly UserInterfaceChannelSO OnUserInterfaceChangeEvent;
 
 
         public UserInterface UI => UserInterface.MainMenu;
         public UserInterfaceType UIType => UserInterfaceType.Fullscreen;
+        private Action<InputAction.CallbackContext> cancelCallback;
 
         public MainMenuManager(UIDocument fullscreenDocument, UserInterfaceChannelSO onUserInterfaceChange)
         {
             this.FullscreenDocument = fullscreenDocument;
             this.OnUserInterfaceChangeEvent = onUserInterfaceChange;
+            this.cancelCallback = (context) =>
+            {
+                Debug.Log("Cancel button clicked");
+                currentScreen?.Hide();
+            };
+            inputActions = new InputActions();
+            inputActions.Enable();
+            inputActions.UI.Cancel.performed += cancelCallback;
         }
 
         private void HandlePlayButtonClicked()
@@ -36,7 +51,31 @@ namespace Deege.Game.UI.Custom
         private void HandleSettingsButtonClicked()
         {
             Debug.Log("Settings button clicked");
-            // Handle settings button click
+            if (SettingsDocument == null)
+            {
+                Debug.LogError("Settings document not set");
+                return;
+            }
+            SettingsDocument.enabled = true;
+            mainMenu.DeactivateButtons();
+            var settingsElement = SettingsElementBuilder.Builder()
+                .SetStyleResource("GameSettings.style")
+                .SetSettingsKey("#SETTINGS#")
+                .OnShow((screen) =>
+                {
+                    (screen as SettingsElement).ActivateContentContainer();
+                    currentScreen = screen;
+                })
+                .OnHide((screen) =>
+                {
+                    (screen as SettingsElement).DeactivateContentContainer();
+                    mainMenu.ActivateButtons();
+                    SettingsDocument.enabled = false;
+                    currentScreen = null;
+                })
+                .Build();
+
+            settingsElement.Show(SettingsDocument);
         }
 
         private void HandleExitButtonClicked()
@@ -89,6 +128,16 @@ namespace Deege.Game.UI.Custom
                 .AddButton("#CANCEL#", "cancel", "cancel-button")
                 .SetTitle("#QUIT_GAME_CONFIRMATION#")
                 .SetMessage("#ARE_YOU_SURE_QUIT_GAME#")
+                .OnShow((screen) =>
+                {
+                    currentScreen = screen;
+                })
+                .OnHide((screen) =>
+                {
+                    mainMenu.ActivateButtons();
+                    SettingsDocument.enabled = false;
+                    currentScreen = null;
+                })
                 .Build();
             string result = await confirmationDialog.ShowAsync(PopupDocument);
             if (result == "confirm")
@@ -99,6 +148,7 @@ namespace Deege.Game.UI.Custom
             {
                 onCancel?.Invoke();
             }
+            PopupDocument.enabled = false;
         }
     }
 }

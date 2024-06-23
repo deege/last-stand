@@ -12,6 +12,9 @@ namespace Deege.UI.Controls
         public VisualElement RootElement => rootElement;
         public string baseStyleResource = "Base.style";
 
+        public event System.Action<UIScreen> OnHide;
+        public event System.Action<UIScreen> OnShow;
+
         public UIScreen()
         {
             this.rootElement = this;
@@ -29,16 +32,13 @@ namespace Deege.UI.Controls
         {
             ConstructUI(uiDocument, baseStyleResource);
             style.display = DisplayStyle.Flex;
+            OnShow?.Invoke(this);
         }
 
         public virtual void Hide()
         {
             style.display = DisplayStyle.None;
-        }
-
-        public virtual void Render()
-        {
-            // Custom rendering logic if needed
+            OnHide?.Invoke(this);
         }
 
         public void SetStyleResource(string styleResource)

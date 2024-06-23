@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Deege.Tools
+namespace Deege.Game.Tools
 {
     public class CompositeKey<TKey1, TKey2>
     {

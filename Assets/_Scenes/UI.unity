@@ -218,7 +218,7 @@ MonoBehaviour:
   OnUserInterfaceChange: {fileID: 11400000, guid: 177e20aa180a3466dbf86bac8559be4a, type: 2}
   fullscreenDocument: {fileID: 1479666329}
   popupDocument: {fileID: 967237340}
-  dialogDocument: {fileID: 0}
+  dialogDocument: {fileID: 2027322992}
   hudDocument: {fileID: 679134498}
 --- !u!1 &967237339
 GameObject:
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 572236b194f094c56936413029b325fb, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: d7059da8af54942da85c8a3ec5113c5e, type: 3}
   m_SortingOrder: 2
 --- !u!4 &2027322993
 Transform:

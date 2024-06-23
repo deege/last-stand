@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Deege.UI.Controls;
 using UnityEngine;
@@ -70,6 +71,8 @@ namespace Deege.Game.UI
         private string _titleKey = "MISSING_KEY";
         private string _messageKey = "MISSING_KEY";
         private string styleResource = "ConfirmationDialog.style";
+        private Action<UIScreen> onHide;
+        private Action<UIScreen> onShow;
 
         public static ConfirmationDialogElementBuilder Builder()
         {
@@ -97,6 +100,18 @@ namespace Deege.Game.UI
         public ConfirmationDialogElementBuilder AddButton(string labelKey, string result, string buttonClass)
         {
             _buttons.Add((labelKey, result, buttonClass));
+            return this;
+        }
+
+        public ConfirmationDialogElementBuilder OnShow(Action<UIScreen> onShow)
+        {
+            this.onShow = onShow;
+            return this;
+        }
+
+        public ConfirmationDialogElementBuilder OnHide(Action<UIScreen> onHide)
+        {
+            this.onHide = onHide;
             return this;
         }
 

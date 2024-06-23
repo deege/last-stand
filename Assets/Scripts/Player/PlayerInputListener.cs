@@ -1,4 +1,5 @@
 using Deege.Events;
+using Deege.Game.Inputs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,7 +24,7 @@ namespace Deege.Game.Player
         [SerializeField] internal VoidEventChannelSO OnPlayerSwitchButtonPressed;
 
         private bool controlsAreEnabled = false;
-        private Laststandinputs inputActions;
+        private InputActions inputActions;
         private InputAction moveAction;
         private InputAction fireAction;
         private InputAction switchWeaponsAction;
@@ -58,7 +59,7 @@ namespace Deege.Game.Player
 
         private void EnableInputActions()
         {
-            inputActions = new Laststandinputs();
+            inputActions = new InputActions();
             moveAction = inputActions.Player.Move;
             moveAction.Enable();
             inputActions.Player.Move.performed += OnPlayerMove;

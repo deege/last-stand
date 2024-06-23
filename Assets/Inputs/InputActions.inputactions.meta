@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 70b8e48d604fc46e3b50fcda343abc11
+guid: d95344e363bfc4d5aaffcd55958fedc7
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -11,4 +11,4 @@ ScriptedImporter:
   generateWrapperCode: 1
   wrapperCodePath: 
   wrapperClassName: 
-  wrapperCodeNamespace: Deege.Game
+  wrapperCodeNamespace: Deege.Game.Inputs

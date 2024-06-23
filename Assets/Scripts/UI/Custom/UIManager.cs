@@ -60,7 +60,6 @@ namespace Deege.Game.UI.Custom
 
         private void OnUserInterfaceChangeEvent(UserInterfaceEventArgs uiArgs)
         {
-            // erwwer
             if (uiArgs.UI == UserInterface.None)
             {
                 // Hide all UI
@@ -99,7 +98,7 @@ namespace Deege.Game.UI.Custom
                     MainMenuManager mainMenuManager = new(fullscreenDocument, OnUserInterfaceChange)
                     {
                         PopupDocument = popupDocument,
-                        SettingsDocument = popupDocument
+                        SettingsDocument = dialogDocument
                     };
                     mainMenuManager.Show();
                     uiManagers.Add(UserInterface.MainMenu, mainMenuManager);

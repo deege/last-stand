@@ -1,0 +1,312 @@
+.container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 400ms;
+}
+
+.container.container-active {
+    opacity: 1;
+}
+
+.header {
+    flex-grow: 0;
+    background-color: rgb(0, 0, 0);
+    height: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    justify-content: center;
+    padding-left: 30px;
+    border-color: rgb(0, 255, 250);
+    border-bottom-width: 3px;
+}
+
+.header-label {
+    color: rgb(255, 255, 255);
+    font-size: 45px;
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+}
+
+.content-container {
+    flex-grow: 1;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.footer {
+    margin-right: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgb(0, 0, 0);
+    height: 100px;
+    width: 100%;
+    max-height: 100px;
+    min-height: 100px;
+    padding-right: 60px;
+    border-color: rgb(0, 255, 250);
+    border-top-width: 3px;
+    color: white;
+}
+
+.footer-label {
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    -unity-font-style: bold;
+    flex-grow: 0;
+}
+
+.settings-panel {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    right: 80px;
+    bottom: 80px;
+    background-color: rgb(12, 42, 70);
+    flex-direction: row;
+    align-self: auto;
+    align-items: flex-start;
+    border-radius: 15px;
+}
+
+.settings-buttons {
+    width: 25%;
+    max-width: 25%;
+    height: 100%;
+    max-height: none;
+    left: 40px;
+    padding: 1%;
+    justify-content: space-around;
+    flex-grow: 1;
+    align-self: center;
+    flex-shrink: 1;
+    align-items: stretch;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+.settings-menu-button {
+    font-size: 30px;
+    -unity-font-style: bold;
+    height: 20%;
+    width: 100%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.19);
+    border-radius: 15px;
+    border-color: rgb(0, 255, 250);
+    border-width: 4px;
+}
+
+.settings-menu-button:hover {
+    border-color: rgb(255, 200, 40);
+    background-color: rgb(0, 0, 0);
+}
+
+.settings-menu-button:focus {
+    border-color: rgb(237, 167, 37);
+    background-color: rgb(0, 0, 0);
+}
+
+.settings-menu-button:disabled {
+    color: red;
+    height: 20%;
+    border-radius: 15px;
+    border-color: rgb(100, 100, 100);
+    background-color: rgba(0, 0, 0, 0.19);
+}
+
+.audio-settings-container {
+    top: 20px;
+    left: 80px;
+    right: 100px;
+    bottom: 80px;
+}
+
+.settings-tab {
+    padding: 5%;
+    height: 100%;
+    width: 100%;
+}
+
+.hidden-tab {
+    display: none;
+}
+
+.active-tab {
+    display: flex;
+}
+
+.volume-header {
+    color: white;
+    font-size: 45px;
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+    flex-direction: row;
+}
+
+.volume-icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 100%;
+    min-width: 50px;
+    flex-grow: 0;
+    margin-right: 10px;
+    margin-left: 20px;
+    background-image: resource('audioOn');
+}
+
+.volume-settings-label {
+    color: white;
+    font-size: 35px;
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+}
+
+.volume-slider {
+    width: 55%;
+    max-width: 55%;
+}
+
+.volume-slider-value-label {
+   font-size: 18px;
+    -unity-font-style: bold;
+    color: white;
+    -unity-text-align: middle-left;
+}
+
+.volume-slider-container {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.ussDisplayPanel {
+    padding-left: 60px;
+}
+
+.lanugage-prompt-label {
+    color: white;
+    font-size: 35px;
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+}
+
+.gameplay-panel {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    align-items: stretch;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.difficulty-button {
+    flex: 1;
+    margin: 20px;
+    border-radius: 15px;
+    border-color: rgb(0, 255, 250);
+    border-width: 4px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.difficulty-button-darkened {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: darken;
+    border: 5px solid red;
+}
+
+.difficulty-button-text {
+    color: white;
+    font-size: 35px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-left: 30px;
+    top: 20%;
+}
+
+.difficulty-button:hover .difficulty-button-text {
+    color: yellow;
+    background-color: rgb(0, 0, 0);
+}
+
+.difficulty-button:hover {
+    border-color: rgb(255, 200, 40);
+}
+
+.difficulty-button:focus {
+    border-color: rgb(237, 167, 37);
+}
+
+.difficulty-button:focus .difficulty-button-text {
+    color: rgb(237, 167, 37);
+    background-color: rgb(0, 0, 0);
+}
+
+.difficulty-button:disabled {
+    border-color: rgb(100, 100, 100);
+}
+
+.easy-difficulty-button {
+    background-image: resource('ui-settings-easy');
+}
+
+.hard-difficulty-button {
+    background-image: resource('ui-settings-hard');
+}
+
+.normal-difficulty-button {
+    background-image: resource('ui-settings-normal');
+}
+
+.insane-difficulty-button {
+    background-image: resource('ui-settings-insane');
+}
+
+.cancel-icon {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    min-width: 50px;
+    flex-grow: 0;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.ps-cancel-icon {
+    background-image: resource('playstation_button_color_circle');
+}
+
+.xbox-cancel-icon {
+    background-image: resource('xbox_button_color_b');
+}
+
+.ps-cancel-icon {
+    background-image: resource('playstation_button_color_circle');
+}
+
+.steam-cancel-icon {
+    background-image: resource('steam_button_color_b');
+}
+
+.switch-cancel-icon {
+    background-image: resource('switch_button_a');
+}
+
+.keyboard-cancel-icon {
+    background-image: resource('keyboard_escape');
+}
+
+.default-controller-icon {
+    background-image: resource('switch_button_a');
+}
+
+

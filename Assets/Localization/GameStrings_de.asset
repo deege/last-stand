@@ -50,6 +50,10 @@ MonoBehaviour:
     m_Localized: Abbrechen
     m_Metadata:
       m_Items: []
+  - m_Id: 9873842729115648
+    m_Localized: "Zur\xFCck"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

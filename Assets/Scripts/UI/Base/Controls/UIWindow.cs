@@ -23,14 +23,5 @@ namespace Deege.UI.Controls
             children.Add(child);
             hierarchy.Add(child);
         }
-
-        public override void Render()
-        {
-            base.Render();
-            foreach (var child in children)
-            {
-                child.Render();
-            }
-        }
     }
 }
