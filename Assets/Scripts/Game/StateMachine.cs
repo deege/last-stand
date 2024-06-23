@@ -14,20 +14,23 @@ namespace Deege.Game
     {
         internal GameStateEventChannelSO OnGameStateChange;
         internal UserInterfaceChannelSO OnUserInterfaceChange;
+        internal GameControlChannelSO OnGameControlSwitch;
 
         private readonly Dictionary<GameState, IGameState> states;
         private IGameState currentState;
 
-        public StateMachine(GameStateEventChannelSO gameStateEventChannel, UserInterfaceChannelSO onUserInterfaceChangeEvent)
+        public StateMachine(GameStateEventChannelSO gameStateEventChannel, UserInterfaceChannelSO onUserInterfaceChangeEvent,
+                GameControlChannelSO onGameControlSwitch)
         {
             this.OnGameStateChange = gameStateEventChannel;
             this.OnUserInterfaceChange = onUserInterfaceChangeEvent;
+            this.OnGameControlSwitch = onGameControlSwitch;
             states = new Dictionary<GameState, IGameState>()
             {
-                { GameState.MainMenu, new MainMenuState(onUserInterfaceChangeEvent) },
-                { GameState.Playing, new PlayingState(onUserInterfaceChangeEvent) },
-                { GameState.Paused, new PausedState(onUserInterfaceChangeEvent) },
-                { GameState.GameOver, new GameOverState(onUserInterfaceChangeEvent) }
+                { GameState.MainMenu, new MainMenuState(onUserInterfaceChangeEvent, onGameControlSwitch) },
+                { GameState.Playing, new PlayingState(onUserInterfaceChangeEvent, onGameControlSwitch) },
+                { GameState.Paused, new PausedState(onUserInterfaceChangeEvent,onGameControlSwitch) },
+                { GameState.GameOver, new GameOverState(onUserInterfaceChangeEvent,onGameControlSwitch) }
             };
             currentState = null;
         }

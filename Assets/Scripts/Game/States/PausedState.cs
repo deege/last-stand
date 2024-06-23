@@ -6,7 +6,9 @@ namespace Deege.Game
 {
     public class PausedState : IGameState
     {
-        public PausedState(UserInterfaceChannelSO onUserInterfaceChangeEvent)
+        private readonly GameControlChannelSO OnGameControlSwitch;
+
+        public PausedState(UserInterfaceChannelSO onUserInterfaceChangeEvent, GameControlChannelSO onGameControlSwitch)
         {
             // Code to execute when the paused state is created
         }

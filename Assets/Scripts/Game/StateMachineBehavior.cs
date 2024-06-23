@@ -15,12 +15,13 @@ namespace Deege.Game
 
         [SerializeField] internal GameStateEventChannelSO OnGameStateChange;
         [SerializeField] internal UserInterfaceChannelSO OnUserInterfaceChange;
+        [SerializeField] internal GameControlChannelSO OnGameControlSwitch;
 
         private void Awake()
         {
             Debug.Log("StateMachineBehaviour: Awake");
             // Initialize the state machine
-            stateMachine = new StateMachine(OnGameStateChange, OnUserInterfaceChange);
+            stateMachine = new StateMachine(OnGameStateChange, OnUserInterfaceChange, OnGameControlSwitch);
         }
 
         private void Start()

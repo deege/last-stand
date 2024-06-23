@@ -11,10 +11,12 @@ namespace Deege.Game
     {
 
         private readonly UserInterfaceChannelSO OnUserInterfaceChangeEvent;
+        private readonly GameControlChannelSO OnGameControlSwitch;
 
-        public MainMenuState(UserInterfaceChannelSO onUserInterfaceChangeEvent)
+        public MainMenuState(UserInterfaceChannelSO onUserInterfaceChangeEvent, GameControlChannelSO onGameControlSwitch)
         {
             this.OnUserInterfaceChangeEvent = onUserInterfaceChangeEvent;
+            this.OnGameControlSwitch = onGameControlSwitch;
         }
 
         public void Enter()
@@ -29,6 +31,10 @@ namespace Deege.Game
                 UI = UserInterface.MainMenu,
                 Activate = isActive
             };
+            if (OnGameControlSwitch != null)
+            {
+                OnGameControlSwitch.RaiseEvent(GameControl.UI);
+            }
             if (OnUserInterfaceChangeEvent != null)
             {
                 OnUserInterfaceChangeEvent.RaiseEvent(args);

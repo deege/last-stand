@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Deege.Game.UI.Controls;
 using Deege.UI.Controls;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,6 +15,7 @@ namespace Deege.Game.UI
         private readonly VisualElement buttonContainer = new();
         public VisualElement ButtonContainer => buttonContainer;
         public List<Button> MenuButtons { get; set; } = new();
+
 
         public string Title { get; set; }
 
@@ -54,7 +56,10 @@ namespace Deege.Game.UI
             {
                 button.SetEnabled(true);
             }
+            SetFocusToButton(MenuButtons[0]);
         }
+
+
     }
 
     public class MainMenuElementBuilder
@@ -103,6 +108,7 @@ namespace Deege.Game.UI
                 var button = LocalizedButton.CreateButton(labelKey, buttonClass);
                 _menuScreen.MenuButtons.Add(button);
                 button.clicked += callback;
+                button.focusable = true;
                 _menuScreen.ButtonContainer.Add(button);
             }
             _menuScreen.ActivateButtons();

@@ -10,10 +10,12 @@ namespace Deege.Game
     {
 
         public float SecondsDelayBeforeQuit = 1.0f;
+        private readonly GameControlChannelSO OnGameControlSwitch;
 
-        public GameOverState(UserInterfaceChannelSO onUserInterfaceChangeEvent)
+        public GameOverState(UserInterfaceChannelSO onUserInterfaceChangeEvent, GameControlChannelSO onGameControlSwitch)
         {
             // Code to initialize the game over state
+            this.OnGameControlSwitch = onGameControlSwitch;
         }
 
         public void Enter()

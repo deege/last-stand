@@ -66,6 +66,11 @@ namespace Deege.UI.Controls
             }
         }
 
+        public void SetFocusToButton(Button button)
+        {
+            button?.Focus();
+        }
+
         protected LocalizedLabel GetLocalizedLabel(string labelName)
         {
             return this.Q<LocalizedLabel>(labelName);

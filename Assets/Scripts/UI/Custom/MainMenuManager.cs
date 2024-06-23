@@ -106,6 +106,7 @@ namespace Deege.Game.UI.Custom
                     .AddButton("#ABOUT_GAME#", "about-button", HandleAboutButtonClicked)
                     .Build();
             mainMenu.Show(FullscreenDocument);
+            mainMenu.ActivateButtons();
         }
 
         public void Hide()

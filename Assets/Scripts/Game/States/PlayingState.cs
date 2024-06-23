@@ -6,7 +6,9 @@ namespace Deege.Game
 {
     public class PlayingState : IGameState
     {
-        public PlayingState(UserInterfaceChannelSO onUserInterfaceChangeEvent)
+        private readonly GameControlChannelSO OnGameControlSwitch;
+
+        public PlayingState(UserInterfaceChannelSO onUserInterfaceChangeEvent, GameControlChannelSO onGameControlSwitch)
         {
             // Code to execute when the playing state is created
         }
